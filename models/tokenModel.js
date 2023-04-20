@@ -6,14 +6,16 @@ module.exports = (sequelize)=>
     TokenModel.init({
         userId:{
             field:"user_id",
-            type:DataTypes.INTEGER
+            type:DataTypes.STRING
         },
         refreshToken:{
             field:"refresh_token",
-            type:DataTypes.STRING(64),
+            type:DataTypes.STRING,
             allowNull:false
         },
     },{
         sequelize,
-        timestamps:false
+        timestamps:false,
+        modelName:"tokens",
+        
     })

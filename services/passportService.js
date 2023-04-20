@@ -8,10 +8,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 
 passport.use(
     new GoogleStrategy({
-        clientID: GOOGLE_CLIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: "https://www.example.com/oauth2/redirect/google",
-        session:false
+        clientID: "828297641879-hhvt5thvjfqvj76mbh9pupi6blnrh543.apps.googleusercontent.com",
+        clientSecret: "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",
+        callbackURL: "http://localhost:3000/google/callback",
+        scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://mail.google.com/',
+        session:false,
+        prompt: 'consent'
     },
     function(accessToken, refreshToken, profile, done) {
         // функция обратного вызова, которая будет вызвана при успешной аутентификации

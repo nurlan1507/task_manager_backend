@@ -5,7 +5,7 @@ function errorMiddleware(err,req,res,next){
         return res.status(err.code).json(err.msg)
     }
     else{
-        return res.json(err)
+        throw(err)
     }   
 }
 

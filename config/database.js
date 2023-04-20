@@ -16,11 +16,13 @@ class DataBase{
                 min: 0,
                 acquire: 30000,
                 idle: 10000
-            }
+            },
+            logging:false
         })
         try {
             await this.sequelize.authenticate()
             await this.createEntities()
+            this.sequelize.sync()
             console.log("Db connected susccessfully")
         } catch (e) {
             console.log(`Db error: ${e}`)
@@ -33,7 +35,7 @@ class DataBase{
             this.userModel = userModelInit(this.sequelize)
             this.tokenModel = require("../models/tokenModel")(this.sequelize)
             this.userModel.hasOne(this.tokenModel)
-            this.tokenModel.belongsTo(this.userModel,{foreignKey:"id"})
+            this.tokenModel.belongsTo(this.userModel,{foreignKey:"user_id"})
             await this.sequelize.sync()
         }catch(e){
             throw(e)
@@ -56,6 +58,4 @@ class DataBase{
 const db = new DataBase()
 module.exports = {
     DB:db,
-    tokenModel:db.tokenModel,
-    userModel:db.userModel
 }

@@ -3,11 +3,11 @@ const {} = require("../config/database")
 class UserModel extends Model{
 
 }
+
 module.exports = (sequelize) => UserModel.init({
     id:{
         type:DataTypes.STRING,
         primaryKey:true,
-        autoIncrement:true
     },
     firstName:{
         field:"first_name",
@@ -26,5 +26,6 @@ module.exports = (sequelize) => UserModel.init({
     },
 },{
     sequelize,
-    timestamps:true
+    timestamps:true,
+    modelName:"users"
 })

@@ -1,20 +1,23 @@
 const jwt = require("jsonwebtoken")
-const userDTO = require("../dtos/UserDTO")
 const {TOKEN_SECRET} = require("../config/settings")
-const {tokenModel} = require("../config/database")
+const {DB} = require("../config/database");
+const { refreshToken } = require("../controllers/userController");
 
 class TokenService{
     async createTokens(userDto){
         const userdto = userDto;
+        console.log({...userdto})
         const refreshToken = jwt.sign({...userdto}, TOKEN_SECRET, {expiresIn:'7d'});
         const accessToken = jwt.sign({...userdto},TOKEN_SECRET,{expiresIn: '1m'});
         this.saveToken(userDto.id,refreshToken)
         return {refreshToken:refreshToken, accessToken:accessToken}
     }
 
-    async refreshToken(){
-
-    }   
+    async getToken(refreshToken){
+        const token =  await DB.tokenModel.findOne({where:{refreshToken:refreshToken}, attributes:['id','user_id','refresh_token']})
+        console.log(token)
+        return token 
+    }
 
     verifyAccessToken(token) {
         try {
@@ -26,6 +29,7 @@ class TokenService{
             return null;
         }
     }
+    
 
     verifyRefreshToken(token) {
         try {
@@ -40,14 +44,14 @@ class TokenService{
 
 
     async saveToken(userId,refreshToken){
-        const token = await tokenModel.findOne({where:{userId:userId}})
+        const token = await DB.tokenModel.findOne({where:{userId:userId}})
         if(token!=null){
             token.refreshToken = refreshToken
             await token.save()
             return token
         }
-        const DBToken = await tokenModel.create({
-            userId:user.id,
+        const DBToken = await DB.tokenModel.create({
+            userId:userId,
             refreshToken: refreshToken,
         })
         return DBToken

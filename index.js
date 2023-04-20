@@ -10,6 +10,12 @@ const userRoutes = require("./routes/userRoute")
 app.use(express.json({limit:'10mb'}))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+})
 app.use("/api/users", userRoutes)
 app.use(errorMiddleware)//error handlnbing
 
