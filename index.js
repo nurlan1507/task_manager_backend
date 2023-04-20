@@ -4,9 +4,11 @@ const bodyParser = require("body-parser")
 const {PORT} = require("./config/settings")
 const {DB} = require("./config/database")
 const errorMiddleware = require("./middlewares/errorMiddleware")
+const cors = require("cors")
 //routes
 const userRoutes = require("./routes/userRoute")
 
+app.use(cors({origin:"*",}))
 app.use(express.json({limit:'10mb'}))
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
