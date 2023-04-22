@@ -10,12 +10,11 @@ module.exports = (sequelize)=>
         },
         refreshToken:{
             field:"refresh_token",
-            type:DataTypes.STRING,
+            type:DataTypes.TEXT,
             allowNull:false
         },
     },{
         sequelize,
         timestamps:false,
         modelName:"tokens",
-        
     })
