@@ -20,7 +20,7 @@ class UserController {
             }else{
                 const userDto = new UserDTO(id,username,email)
                 const tokens = await tokenService.createTokens(userDto)
-                return res.status(400).json({message:"User successfully logged in", data:{...userDto, ...tokens}})
+                return res.status(200).json({message:"User successfully logged in", data:{...userDto, ...tokens}})
             }
         } catch (e) {
             console.log(e);
