@@ -16,6 +16,7 @@ class UserController {
                 await userService.createUser(id, username, username,email)
                 const userDto = new UserDTO(id,username,email)
                 const tokens = await tokenService.createTokens(userDto)
+                
                 return res.status(200).json({message:"User successfully created", data:{...userDto, ...tokens}})
             }else{
                 const userDto = new UserDTO(id,username,email)

@@ -7,6 +7,9 @@ class DataBase{
     sequelize
     userModel
     tokenModel
+    projectModel
+    userProjectModel 
+    taskModel
     async initConnection(){
         this.sequelize = new DB(DB_NAME, DB_USERNAME, DB_PASSWORD,{
             host:DB_URL,
@@ -34,8 +37,15 @@ class DataBase{
         try{
             this.userModel = userModelInit(this.sequelize)
             this.tokenModel = require("../models/tokenModel")(this.sequelize)
+            this.projectModel = require("../models/projectModel")(this.sequelize)
+            this.taskModel = require("../models/taskModel")(this.sequelize)
             this.userModel.hasOne(this.tokenModel)
             this.tokenModel.belongsTo(this.userModel,{foreignKey:"user_id"})
+            this.projectModel.belongsToMany(this.userModel,{through:"user_projects"})
+            this.taskModel.belongsTo(this.projectModel,{through:"project_id"} )
+            this.projectModel.hasMany(this.taskModel)
+            this.userModel.belongsToMany(this.projectModel,{through:"user_projects"})
+            
             await this.sequelize.sync()
         }catch(e){
             throw(e)
