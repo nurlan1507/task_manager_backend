@@ -8,7 +8,7 @@ class TokenService{
         const userdto = userDto;
         console.log({...userdto})
         const refreshToken = jwt.sign({...userdto}, TOKEN_SECRET, {expiresIn:'7d'});
-        const accessToken = jwt.sign({...userdto},TOKEN_SECRET,{expiresIn: '1m'});
+        const accessToken = jwt.sign({...userdto},TOKEN_SECRET,{expiresIn: '1d'});
         this.saveToken(userDto.id,refreshToken)
         return {refreshToken:refreshToken, accessToken:accessToken}
     }

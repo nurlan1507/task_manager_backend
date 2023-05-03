@@ -50,8 +50,8 @@ class DataBase{
             this.projectModel.belongsTo(this.userModel, {foreignKey:"user_id"})
             
             this.tokenModel.belongsTo(this.userModel,{foreignKey:"user_id"})
-            this.taskModel.belongsTo(this.projectModel,{through:"project_id"} )
-            this.projectModel.hasMany(this.taskModel)
+            this.projectModel.hasMany(this.taskModel,{ foreignKey: 'project_id', as: 'tasks'})
+            this.taskModel.belongsTo(this.projectModel,{foreignKey: 'project_id', as: 'project'} )
             this.projectModel.belongsTo(this.userModel,{through:"user_project"})
             this.userModel.belongsTo(this.projectModel, {through:"user_project"})
             await this.sequelize.sync()
@@ -76,4 +76,6 @@ class DataBase{
 const db = new DataBase()
 module.exports = {
     DB:db,
+    taskModel:db.taskModel,
+    projectModel: db.projectModel
 }

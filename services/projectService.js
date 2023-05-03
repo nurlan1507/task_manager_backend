@@ -1,5 +1,6 @@
 const {DB} = require("../config/database")
 
+
 class ProjectService{
     async getProject(id){
         const project = DB.projectModel.find({where:{projectId:id}})
@@ -14,7 +15,10 @@ class ProjectService{
     }
 
     async getProjects(id){
-       const projects =  await DB.projectModel.findAll({where:{userId:id}})
+       const projects =  await DB.projectModel.findAll({where:{userId:id}, include:[{
+        model:DB.taskModel,
+        as:'tasks'
+       }]})
        return projects
     }
 }
