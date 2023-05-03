@@ -20,6 +20,9 @@ class DataBase{
                 acquire: 30000,
                 idle: 10000
             },
+            sync: {
+                alter: true
+            },            
             logging:false
         })
         try {
@@ -39,13 +42,18 @@ class DataBase{
             this.tokenModel = require("../models/tokenModel")(this.sequelize)
             this.projectModel = require("../models/projectModel")(this.sequelize)
             this.taskModel = require("../models/taskModel")(this.sequelize)
+            this.userProjectModel = require("../models/userProjectModel")(this.sequelize)
+
             this.userModel.hasOne(this.tokenModel)
+
+            this.userModel.hasMany(this.projectModel, {foreignKey:"user_id"})
+            this.projectModel.belongsTo(this.userModel, {foreignKey:"user_id"})
+            
             this.tokenModel.belongsTo(this.userModel,{foreignKey:"user_id"})
-            this.projectModel.belongsToMany(this.userModel,{through:"user_projects"})
             this.taskModel.belongsTo(this.projectModel,{through:"project_id"} )
             this.projectModel.hasMany(this.taskModel)
-            this.userModel.belongsToMany(this.projectModel,{through:"user_projects"})
-            
+            this.projectModel.belongsTo(this.userModel,{through:"user_project"})
+            this.userModel.belongsTo(this.projectModel, {through:"user_project"})
             await this.sequelize.sync()
         }catch(e){
             throw(e)

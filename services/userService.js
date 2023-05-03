@@ -11,6 +11,7 @@ class UserService{
         })
     }
 
+
     async getUserById(id){
 
         const user = await DB.userModel.findOne({where:{id:id}})

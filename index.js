@@ -25,7 +25,6 @@ app.listen(PORT, () => {
   try{
     DB.initConnection()
     console.log('Server started on port 3000');
-
   }catch(e){
     process.exit(1)
   }

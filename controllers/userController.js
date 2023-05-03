@@ -3,6 +3,7 @@ const tokenService = require("../services/tokenService")
 const userService = require("../services/userService")
 const { AuthError, BadRequest } = require("../exceptions/apiError")
 const UserDTO = require("../dtos/UserDTO")
+const taskService = require("../services/tasksService")
 
 class UserController {
 
@@ -16,7 +17,7 @@ class UserController {
                 await userService.createUser(id, username, username,email)
                 const userDto = new UserDTO(id,username,email)
                 const tokens = await tokenService.createTokens(userDto)
-                
+                taskService.firstTasks(id)
                 return res.status(200).json({message:"User successfully created", data:{...userDto, ...tokens}})
             }else{
                 const userDto = new UserDTO(id,username,email)

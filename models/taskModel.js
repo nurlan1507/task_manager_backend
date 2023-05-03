@@ -7,9 +7,9 @@ class TaskModel extends Model{
 module.exports = (sequelize)=>TaskModel.init({
     taskId:{
         field:"task_id",
-        type:DataTypes.BIGINT,
-        allowNull:false,
-        primaryKey:true
+        type:DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
     },
     title:{
         field:"title",
@@ -23,13 +23,16 @@ module.exports = (sequelize)=>TaskModel.init({
         field:"finish_date",
         type:DataTypes.BIGINT
     },
+    done:{
+        type:DataTypes.BOOLEAN
+    },
     projectId:{
         field:"project_id",
-        type:DataTypes.STRING
+        type:DataTypes.INTEGER
     }
-    
 },{
     sequelize,
+    timestamps:false,
     modelName:"tasks",
 })
 

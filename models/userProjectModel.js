@@ -21,6 +21,6 @@ module.exports = (sequelize)=>UserProjectModel.init({
     }
 },{
     sequelize,
-    modelName:"projects",
+    modelName:"user_project",
 })
 

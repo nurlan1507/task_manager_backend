@@ -7,14 +7,18 @@ class ProjectModel extends Model{
 module.exports = (sequelize)=>ProjectModel.init({
     projectId:{
         field:"project_id",
-        type:DataTypes.STRING,
-        allowNull:false,
-        primaryKey:true
+        type:DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
     },
     title:{
         field:"title",
         type: DataTypes.STRING,
         allowNull:false
+    },
+    userId:{
+        field:"user_id",
+        type:DataTypes.STRING
     }
 },{
     sequelize,
