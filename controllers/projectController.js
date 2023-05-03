@@ -34,7 +34,7 @@ class ProjectController{
             if(projects.length==0){
                 return res.status(400).json({message:"No projects"})
             }
-            return res.status(200).json(projects)
+            return res.status(200).json({projects:projects})
         }catch(e){
             next(e)
         }
