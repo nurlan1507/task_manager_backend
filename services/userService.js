@@ -13,13 +13,8 @@ class UserService{
 
 
     async getUserById(id){
-
         const user = await DB.userModel.findOne({where:{id:id}})
-        if(!user){
-            return true
-        }else{
-            return false
-        }
+        return user
     }
 }
 

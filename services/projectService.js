@@ -12,6 +12,11 @@ class ProjectService{
             userId:userId
         })
     }
+
+    async getProjects(id){
+       const projects =  await DB.projectModel.findAll({where:{userId:id}})
+       return projects
+    }
 }
 
 

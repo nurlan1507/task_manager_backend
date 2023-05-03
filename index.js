@@ -7,6 +7,8 @@ const errorMiddleware = require("./middlewares/errorMiddleware")
 const cors = require("cors")
 //routes
 const userRoutes = require("./routes/userRoute")
+const projectRoutes = require("./routes/projectRoute")
+
 
 app.use(cors({origin:"*",}))
 app.use(express.json({limit:'10mb'}))
@@ -19,6 +21,7 @@ app.use((req, res, next) => {
   next();
 })
 app.use("/api/users", userRoutes)
+app.use("/api/projects",projectRoutes)
 app.use(errorMiddleware)//error handlnbing
 
 app.listen(PORT, () => {

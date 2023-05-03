@@ -12,7 +12,7 @@ class UserController {
             const id = req.body.id_token
             const username = req.body.username
             const email = req.body.email
-            if(await userService.getUserById(id)){
+            if(await userService.getUserById(id)==null){
                 //then go create user
                 await userService.createUser(id, username, username,email)
                 const userDto = new UserDTO(id,username,email)
@@ -24,7 +24,7 @@ class UserController {
                 const tokens = await tokenService.createTokens(userDto)
                 return res.status(200).json({message:"User successfully logged in", data:{...userDto, ...tokens}})
             }
-        } catch (e) {
+        } catch (e){
             console.log(e);
             next(e)
         }

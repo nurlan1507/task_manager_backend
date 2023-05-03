@@ -25,7 +25,19 @@ class ProjectController{
         }catch(e){
             next(e)
         }
-   
+    }
+
+    async getProjects(req,res,next){
+        try{
+            const userId = req.user.id
+            const projects = await projectService.getProjects(userId)
+            if(projects.length==0){
+                return res.status(400).json({message:"No projects"})
+            }
+            return res.status(200).json(projects)
+        }catch(e){
+            next(e)
+        }
     }
 
     async deleteProject(req,res,next){

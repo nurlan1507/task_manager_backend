@@ -6,7 +6,8 @@ class UserProjectModel extends Model{
 
 module.exports = (sequelize)=>UserProjectModel.init({
     projectId:{
-        field:"projectId",
+        field:"project_id",
+        type:DataTypes.INTEGER,
         references:{
             model:"projects",
             key:"project_id"
@@ -14,6 +15,7 @@ module.exports = (sequelize)=>UserProjectModel.init({
     },
     userId:{
         field:"user_id",
+        type: DataTypes.STRING,
         references:{
             model:"users",
             key:"id"
