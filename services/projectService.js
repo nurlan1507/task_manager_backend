@@ -7,10 +7,13 @@ class ProjectService{
         return project
     }
 
-    async createProject(title,userId){
+    async createProject(title,userId, description,finishDate,projectId){
         await DB.projectModel.create({
             title:title,
-            userId:userId
+            userId:userId,
+            description:description,
+            finishDate:finishDate,
+            projectId:projectId
         })
     }
 

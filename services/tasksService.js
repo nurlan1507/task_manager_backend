@@ -1,4 +1,3 @@
-const { use } = require("passport")
 const {DB} = require("../config/database")
 
 class TasksService{
@@ -7,6 +6,20 @@ class TasksService{
     
     }
 
+    async getTasks(id){
+        const tasks = await DB.taskModel.findAll({where:{projectId:id}})
+        return tasks
+    }
+
+    async createTask(title,description,finishDate,projectId){
+        const newTask = await DB.taskModel.create({ 
+            title:title,
+            description:description,
+            finishDate:finishDate,
+            projectId:projectId
+        })
+        return newTask
+    }
 
     async firstTasks(userId){
         try{

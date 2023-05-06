@@ -8,7 +8,7 @@ const cors = require("cors")
 //routes
 const userRoutes = require("./routes/userRoute")
 const projectRoutes = require("./routes/projectRoute")
-
+const taskRoutes = require("./routes/tasksRoute")
 
 app.use(cors({origin:"*",}))
 app.use(express.json({limit:'10mb'}))
@@ -20,6 +20,7 @@ app.use((req, res, next) => {
   res.append('Access-Control-Allow-Headers', 'Content-Type');
   next();
 })
+app.use("/api/tasks",taskRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/projects",projectRoutes)
 app.use(errorMiddleware)//error handlnbing
