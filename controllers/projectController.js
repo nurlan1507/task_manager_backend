@@ -3,7 +3,7 @@ const projectService = require("../services/projectService")
 class ProjectController{
     async createProject(req,res,next){
         try{
-            const {title} = req.body()
+            const {title} = req.body
             const user = req.user
             await projectService.createProject(title,user.id)
             return res.status(200).json({"message":"Project was successfully created"})
