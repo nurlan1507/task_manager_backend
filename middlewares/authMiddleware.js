@@ -12,7 +12,6 @@ async function authMiddleware(req,res,next){
             if(!user){
                 return next(new BadRequest(400, "user not found"))
             }
-            console.log(user);
             req.user = user
             next()
         }else{

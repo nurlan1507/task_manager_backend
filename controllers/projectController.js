@@ -5,8 +5,8 @@ class ProjectController{
         try{
             const {title} = req.body
             const user = req.user
-            await projectService.createProject(title,user.id)
-            return res.status(200).json({"message":"Project was successfully created"})
+            const newProject = await projectService.createProject(title,user.id)
+            return res.status(200).json({"message":"Project was successfully created","projectId": newProject.projectId})
         }catch(e){
             next(e)
         }

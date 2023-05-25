@@ -13,6 +13,7 @@ class TaskController{
 
     async createTask(req,res,next){
         try{
+    
             const {title,description,finishDate,projectId} = req.body
             const newTask = await taskService.createTask(
                 title,
@@ -21,6 +22,17 @@ class TaskController{
                 projectId
             )
             return res.json({message:"task created successfully", task:{...newTask.dataValues}}).status(200)
+        }catch(e){
+            next(e)
+        }
+    }
+
+    async changeDeadline(req,res,next){
+        try{
+            const {taskId} = req.params
+            const {newDate} = req.body
+            await taskService.changeDeadline(taskId,newDate)
+            return res.json({message:"task deadline changed"}).status(200)
         }catch(e){
             next(e)
         }
